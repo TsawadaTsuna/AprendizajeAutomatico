@@ -1,8 +1,9 @@
+from cProfile import label
+from collections import defaultdict
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score,precision_recall_fscore_support
 import matplotlib.pyplot as plt
 import numpy as np
-
 
 def calcularKmeans(archivo, clusters):
     #Archivo=open('Datos1.csv','r')
@@ -27,20 +28,47 @@ def calcularKmeans(archivo, clusters):
                         datos.append(list(map(float,atrib[:-1])))
 
         kmeans = KMeans(n_clusters=clusters, max_iter=500).fit(datos)#500 es default
-        print(Clases)
-        print(kmeans.labels_)
+        #print(Clases)
+        prediccion=kmeans.labels_
+        #print(kmeans.labels_)
 
         
         print(kmeans.cluster_centers_)
-        print("Silhouete: ",silhouette_score(datos,kmeans.labels_))#generar silhoutte
-
         #todo precision y recall
+        #clase labels
+        diccionario = defaultdict(int)
 
-        #Ejemplo=kmeans.predict([[5, 2], [4, 0], [4, 1]])
-        #Ejemplo=kmeans.predict([[64,89], [50,90]])
-        #print(Ejemplo)
-        print("-------------------------------")
+        for x, y in zip(Clases, prediccion):
+            diccionario[str(y) + x] += 1
 
+        # print(Clases)
+        # print(prediccion)
+        
+        if clusters==2:
+            print(diccionario)    
+            Clases=cambairDatos(Clases,'Mayo',1)
+            Clases=cambairDatos(Clases,'Julio',0)
+        elif clusters==3:
+            1
+
+        # print(Clases)
+        
+        metricas=precision_recall_fscore_support(Clases,prediccion)
+        #printMetricas(metricas,silhouette_score(datos,kmeans.labels_))
+
+
+def printMetricas(metricas,silhoute):
+    print("---------------------------------------------------------------------------------------------")
+    print(f"Silhouete: {silhoute}")#generar silhoutte
+    for i in range(len(metricas[0])):
+        print(f'Cluster:{i}\tPrecision:{metricas[0][i]}\tRecall:{metricas[1][i]}\tF-Score:{metricas[2][i]}')
+        
+    print("---------------------------------------------------------------------------------------------")
+def cambairDatos(arreglo,datoOriginal, datoCambiar):
+    for i in range(len(arreglo)):
+        if arreglo[i]==datoOriginal:
+            arreglo[i]=datoCambiar
+    return arreglo
 
 calcularKmeans('K2Todas.csv',2)
 # calcularKmeans('K2Metricas.csv',2)
