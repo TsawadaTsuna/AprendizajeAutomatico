@@ -37,9 +37,12 @@ def calcularKmeans(archivo, clusters):
         #todo precision y recall
         #clase labels
         diccionario = defaultdict(int)
-
+        for x in Clases:
+            diccionario[x]=[0,0]
         for x, y in zip(Clases, prediccion):
-            diccionario[str(y) + x] += 1
+            #diccionario[str(y) + x] += 1
+            diccionario[x][y]+=1
+            #print(x,y)
 
         # print(Clases)
         # print(prediccion)
