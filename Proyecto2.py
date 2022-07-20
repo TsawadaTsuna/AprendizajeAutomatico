@@ -62,7 +62,20 @@ def calcularKmeans(archivo, clusters):
             #print(prediccion)
             #print(Clases)
         elif clusters==3:
-            1
+            #k3Todas
+            print(diccionario)    
+            print(Clases)
+            print(prediccion)
+            Clases=cambairDatos(Clases,"Profundo",0)
+            Clases=cambairDatos(Clases,"Superficial",1)
+            Clases=cambairDatos(Clases,"Logro",2)
+            print(Clases)
+            #k3Metricas
+
+            #k3pregutnas
+
+
+
         # print(Clases)
         metricas=precision_recall_fscore_support(Clases,prediccion)
         printMetricas(metricas,silhouette_score(datos,kmeans.labels_))
@@ -81,10 +94,10 @@ def cambairDatos(arreglo,datoOriginal, datoCambiar):
             arreglo[i]=datoCambiar
     return arreglo
 
-calcularKmeans('K2Todas.csv',2)
+#calcularKmeans('K2Todas.csv',2)
 # calcularKmeans('K2Metricas.csv',2)
 # calcularKmeans('K2Preguntas.csv',2)
 
-# calcularKmeans('K3Todas.csv',3)
+calcularKmeans('K3Todas.csv',3)
 # calcularKmeans('K3Metricas.csv',3)
 # calcularKmeans('K3Preguntas.csv',3)
