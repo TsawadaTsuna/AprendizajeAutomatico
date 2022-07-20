@@ -9,6 +9,7 @@ def calcularKmeans(archivo, clusters):
     #Archivo=open('Datos1.csv','r')
     try:
         Archivo = open(archivo,'r')
+        print(f'K means \nCon el archivo {archivo} \nk={clusters} ')
     except:
         print("Archivo invalido")
     else:
@@ -32,32 +33,39 @@ def calcularKmeans(archivo, clusters):
         prediccion=kmeans.labels_
         #print(kmeans.labels_)
 
-        
-        print(kmeans.cluster_centers_)
+        #print(kmeans.cluster_centers_)
         #todo precision y recall
         #clase labels
         diccionario = defaultdict(int)
         for x in Clases:
-            diccionario[x]=[0,0]
+            diccionario[x]=[0]*clusters
         for x, y in zip(Clases, prediccion):
             #diccionario[str(y) + x] += 1
             diccionario[x][y]+=1
             #print(x,y)
-
-        # print(Clases)
-        # print(prediccion)
+        
         
         if clusters==2:
-            print(diccionario)    
-            Clases=cambairDatos(Clases,'Mayo',1)
-            Clases=cambairDatos(Clases,'Julio',0)
+            #print(diccionario)    
+            #print(Clases)
+            for i in diccionario:
+                #print(i)        
+                mayor=-1  
+                tmp=-1
+                for j in range(len(diccionario[i])):
+                    if mayor<diccionario[i][j]:
+                        mayor=diccionario[i][j]
+                        tmp=j
+                #print(tmp)
+                Clases=cambairDatos(Clases,i,tmp)
+            
+            #print(prediccion)
+            #print(Clases)
         elif clusters==3:
             1
-
         # print(Clases)
-        
         metricas=precision_recall_fscore_support(Clases,prediccion)
-        #printMetricas(metricas,silhouette_score(datos,kmeans.labels_))
+        printMetricas(metricas,silhouette_score(datos,kmeans.labels_))
 
 
 def printMetricas(metricas,silhoute):
