@@ -63,13 +63,13 @@ def calcularKmeans(archivo, clusters):
             #print(Clases)
         elif clusters==3:
             #k3Todas
-            print(diccionario)    
-            print(Clases)
-            print(prediccion)
+            #print(diccionario)    
+            #print(Clases)
+            #print(prediccion)
             Clases=cambairDatos(Clases,"Profundo",0)
             Clases=cambairDatos(Clases,"Superficial",1)
             Clases=cambairDatos(Clases,"Logro",2)
-            print(Clases)
+            #print(Clases)
             #k3Metricas
 
             #k3pregutnas
@@ -123,28 +123,32 @@ def calcularJeerarquico(archivo, clusters):
         if clusters==2:
             #print(diccionario)    
             #print(Clases)
-            for i in diccionario:
-                #print(i)        
-                mayor=-1  
-                tmp=-1
-                for j in range(len(diccionario[i])):
-                    if mayor<diccionario[i][j]:
-                        mayor=diccionario[i][j]
-                        tmp=j
-                #print(tmp)
-                Clases=cambairDatos(Clases,i,tmp)
+            if archivo == 'K2Preguntas.csv':
+                Clases=cambairDatos(Clases,"Julio",0)
+                Clases=cambairDatos(Clases,"Mayo",1)
+            else:
+                for i in diccionario:
+                    #print(i)        
+                    mayor=-1  
+                    tmp=-1
+                    for j in range(len(diccionario[i])):
+                        if mayor<diccionario[i][j]:
+                            mayor=diccionario[i][j]
+                            tmp=j
+                    #print(tmp)
+                    Clases=cambairDatos(Clases,i,tmp)
             
             #print(prediccion)
             #print(Clases)
         elif clusters==3:
             #k3Todas
-            print(diccionario)    
-            print(Clases)
-            print(prediccion)
+            #print(diccionario)    
+            #print(Clases)
+            #print(prediccion)
             Clases=cambairDatos(Clases,"Profundo",0)
             Clases=cambairDatos(Clases,"Superficial",1)
             Clases=cambairDatos(Clases,"Logro",2)
-            print(Clases)
+            #print(Clases)
             #k3Metricas
 
             #k3pregutnas
@@ -160,7 +164,7 @@ def printMetricas(metricas,silhoute):
     print("---------------------------------------------------------------------------------------------")
     print(f"Silhouete: {silhoute}")#generar silhoutte
     for i in range(len(metricas[0])):
-        print(f'Cluster:{i}\tPrecision:{metricas[0][i]}\tRecall:{metricas[1][i]}\tF-Score:{metricas[2][i]}')
+        print(f'Cluster:{i}\tPrecision: {metricas[0][i]}\tRecall: {metricas[1][i]}\tF-Score: {metricas[2][i]}')
         
     print("---------------------------------------------------------------------------------------------")
 def cambairDatos(arreglo,datoOriginal, datoCambiar):
@@ -169,11 +173,20 @@ def cambairDatos(arreglo,datoOriginal, datoCambiar):
             arreglo[i]=datoCambiar
     return arreglo
 
-#calcularKmeans('K2Todas.csv',2)
-calcularJeerarquico('K2Todas.csv',2)
-# calcularKmeans('K2Metricas.csv',2)
-# calcularKmeans('K2Preguntas.csv',2)
+#calcularKmeans('K2Todas.csv',2) 
+#calcularJeerarquico('K2Todas.csv',2)
 
-#calcularKmeans('K3Todas.csv',3)
-# calcularKmeans('K3Metricas.csv',3)
-# calcularKmeans('K3Preguntas.csv',3)
+#calcularKmeans('K2Metricas.csv',2) 
+#calcularJeerarquico('K2Metricas.csv',2)
+
+#calcularKmeans('K2Preguntas.csv',2) 
+calcularJeerarquico('K2Preguntas.csv',2)
+
+#calcularKmeans('K3Todas.csv',3) 
+#calcularJeerarquico('K3Todas.csv',3)
+
+#calcularKmeans('K3Metricas.csv',3) 
+#calcularJeerarquico('K3Metricas.csv',3)
+
+#calcularKmeans('K3Preguntas.csv',3) 
+#calcularJeerarquico('K3Preguntas.csv',3)
